@@ -18,9 +18,10 @@ namespace Artimus.Services.States {
 		[System.NonSerialized]
 		public StateBase _state;
 
-		public delegate void StateChangedHandler(StateBase state);
+		public delegate void StateChangeHandler(StateBase state);
 
-		public event StateChangedHandler onStateChanged;
+		public event StateChangeHandler OnBeforeStateChange;
+		public event StateChangeHandler OnStateChanged;
 
 		private void Awake() {
 			var defaultState = (StateBase)null;
@@ -98,11 +99,13 @@ namespace Artimus.Services.States {
 		}
 
 		public void Force(StateBase state) {
+			OnBeforeStateChange?.Invoke(_state);
+
 			_state.OnExit();
 			_state = state;
 			_state.OnEnter();
 
-			onStateChanged?.Invoke(_state);
+			OnStateChanged?.Invoke(_state);
 		}
 
 		public void ForceIfNotInState(string stateName) {
