@@ -99,13 +99,13 @@ namespace Artimus.Services.States {
 		}
 
 		public void Force(StateBase state) {
-			OnBeforeStateChange?.Invoke(_state);
+			OnBeforeStateChange?.Invoke(state);
 
 			_state.OnExit();
 			_state = state;
 			_state.OnEnter();
 
-			OnStateChanged?.Invoke(_state);
+			OnStateChanged?.Invoke(state);
 		}
 
 		public void ForceIfNotInState(string stateName) {
