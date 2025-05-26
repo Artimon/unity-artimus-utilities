@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ServicesNS {
+namespace Artimus.Services {
 	/**
 	 * Creates bezier-like results with a <linear> time input from 0 to 1.
 	 */
